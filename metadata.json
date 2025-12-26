@@ -1,0 +1,7 @@
+{
+  "name": "My Expense Tracker",
+  "description": "An AI-powered payment tracker that extracts details from receipts and photos, consolidating them for easy management and submission to external forms.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
