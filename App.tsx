@@ -109,7 +109,8 @@ const getTheme = (mode: 'light' | 'dark') => createTheme({
 
 // --- MODULAR SUB-COMPONENTS ---
 
-const ModuleCard = ({ children, sx }: { children: React.ReactNode; sx?: any }) => (
+// Fix: Added optional children to the type definition to satisfy JSX children injection
+const ModuleCard = ({ children, sx }: { children?: React.ReactNode; sx?: any }) => (
   <Paper 
     elevation={0} 
     sx={{ 
@@ -125,7 +126,8 @@ const ModuleCard = ({ children, sx }: { children: React.ReactNode; sx?: any }) =
   </Paper>
 );
 
-const CategoryPill = ({ category, amount, isSelected, onClick }: { category: string; amount: number; isSelected: boolean; onClick: () => void }) => {
+// Fix: Added optional key to props to prevent TypeScript errors when used in lists
+const CategoryPill = ({ category, amount, isSelected, onClick }: { category: string; amount: number; isSelected: boolean; onClick: () => void; key?: React.Key }) => {
   const Icon = CATEGORY_ICONS[category] || CATEGORY_ICONS['Fallback'];
   const color = CATEGORY_COLORS[category] || CATEGORY_COLORS['Other'];
   
@@ -159,14 +161,16 @@ const CategoryPill = ({ category, amount, isSelected, onClick }: { category: str
   );
 };
 
+// Fix: Added optional key to props and updated onAction to accept Promise for async handlers
 const ReceiptItem = ({ 
   receipt, 
   onAction, 
   onDelete 
 }: { 
   receipt: ReceiptData; 
-  onAction: () => void; 
+  onAction: () => void | Promise<void>; 
   onDelete: () => void;
+  key?: React.Key;
 }) => {
   const isSubmitted = receipt.status === 'submitted';
   const Icon = CATEGORY_ICONS[receipt.category] || CATEGORY_ICONS['Other'] || CATEGORY_ICONS['Fallback'];
@@ -402,7 +406,7 @@ export default function App() {
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Zap size={20} color={theme.palette.primary.main} fill={theme.palette.primary.main} />
-              <Typography variant="h6" color="text.primary" sx={{ letterSpacing: -1, fontWeight: 900 }}>EXPENSE TRACKER</Typography>
+              <Typography variant="h6" color="text.primary" sx={{ letterSpacing: -1, fontWeight: 900 }}>MY EXPENSE TRACKER</Typography>
             </Box>
             <IconButton onClick={toggleTheme} size="small" sx={{ borderRadius: 3, border: '1px solid', borderColor: 'divider' }}>
               {mode === 'light' ? <Moon size={16} /> : <Sun size={16} />}

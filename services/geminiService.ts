@@ -11,7 +11,7 @@ export async function analyzeReceiptImage(base64Image: string): Promise<any> {
   2. Currency (ISO code)
   3. Date of transaction (YYYY-MM-DD)
   4. Vendor or business name
-  5. Category (one of: Food & Dining, Transport, Shopping, Utilities, Health, Entertainment, Business, Other)
+  5. Category (one of: Food & Dining, Shopping, Transport, Bills & Utilities, Entertainment, Health & Wellness, Business, Travel, Other)
   6. A brief 1-sentence description of the purchase.
   
   If details are missing, provide your best guess based on the context.`;
